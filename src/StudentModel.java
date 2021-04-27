@@ -37,7 +37,7 @@ public class StudentModel {
     public ArrayList<String> SQLQueryStudentNames(){
         ArrayList<String> Names=new ArrayList<>();
 
-        String sql="Select Name From Student;";
+        String sql="Select firstName From Students;";
         try {
             rs = stmt.executeQuery(sql);
             while(rs != null && rs.next()){
