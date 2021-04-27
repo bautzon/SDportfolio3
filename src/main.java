@@ -23,3 +23,11 @@ public class main extends Application {
         }
 
 }
+/*
+StudentModel SDB = new StudentModel(url);
+SDB.connect();
+SDB.CreateStatement();
+Arraylist<String> names= SDB.SQLQueryStudentNames();
+SDB.PrintStudents(names)
+
+ */
