@@ -1,11 +1,11 @@
 import java.sql.*;
-/*Connection conn = null;
-String url = "jdbc:sqlite:!(:memory:){file::identifier.sqlite}?";
-conn DriverManager.getConnection(url);*/
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.util.ArrayList;
+/*Connection conn = null;
+String url = "jdbc:sqlite:!(:memory:){file::identifier.sqlite}?";
+conn DriverManager.getConnection(url);*/
 
 public class main extends Application {
 
@@ -21,8 +21,6 @@ public class main extends Application {
         primaryStage.setScene(new Scene(view.asParent(), 600,475));
         primaryStage.show();
     }
-
-
 
     public static void main(String[] args) {
         launch(args);

@@ -35,11 +35,11 @@ public class StudentModel {
     public ArrayList<String> SQLQueryStudentNames() {
         ArrayList<String> Names = new ArrayList<>();
 
-        String sql = "Select firstName, lastName From Students;";
+        String sql = "Select firstName From Students;";
         try {
             rs = stmt.executeQuery(sql);
             while (rs != null && rs.next()) {
-                String name = rs.getString(1) + " " + rs.getString(2);
+                String name = rs.getString(1);
                 Names.add(name);
             }
         } catch (SQLException e) {
@@ -84,8 +84,8 @@ public class StudentModel {
     }
 
     public void PreparedstmtFindStudent() {
-        String sql = "SELECT s.firstName, avg(r.grade) " +
-                "FROM Registration AS r JOIN Students AS s ON r.studentID = s.studentID WHERE s.firstName = ?;";
+        String sql = "SELECT s.firstName, c.courseName, r.grade " +
+                "FROM Registration AS r JOIN Students AS s ON r.studentID = s.studentID JOIN Course C on C.courseID = r.courseID WHERE s.firstName = ? AND c.courseName=? AND c.semester=?;";
         try {
             pstmt = conn.prepareStatement(sql);
         } catch (SQLException e) {
@@ -93,20 +93,76 @@ public class StudentModel {
         }
     }
 
-    public ArrayList<StudentList> FindStudent(String Student, String Course, Integer Grade) {
+    public ArrayList<StudentList> FindStudent(String Student, String Course) {
         ArrayList<StudentList> findStudent = new ArrayList<>();
+        String name = Course.substring(0, Course.indexOf(' '));
+        String semester = Course.substring(Course.indexOf(' ') + 1);
         try {
             pstmt.setString(1, Student);
-            pstmt.setString(2, Course);
-            pstmt.setDouble(3, Grade);
+            pstmt.setString(2, name);
+            pstmt.setString(3, semester);
             rs = pstmt.executeQuery();
             if (rs == null) {
                 System.out.println("No records fetched.");
             }
             while (rs != null && rs.next()) {
-                findStudent.add(new StudentList(rs.getString(1), rs.getString(2), rs.getInt(3)));
+                findStudent.add(new StudentList(rs.getString(1), rs.getString(2), rs.getDouble(3)));
                 System.out.println(" Student: " + rs.getString(1) + " Course " + rs.getString(2));
-                System.out.println(" Grade: " + rs.getInt(3));
+                System.out.println(" Grade: " + rs.getDouble(3));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return findStudent;
+    }
+    public void PreparedstmtFindStudentAvg() {
+        String sql = "SELECT s.firstName, s.lastName, avg(r.grade)\n" +
+                "FROM Registration AS r JOIN Students AS s ON r.studentID = s.studentID Group By s.firstName";
+        try {
+            pstmt = conn.prepareStatement(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public ArrayList<StudentList> FindStudentAvg() {
+        ArrayList<StudentList> findStudent = new ArrayList<>();
+        try {
+            rs = pstmt.executeQuery();
+            if (rs == null) {
+                System.out.println("No records fetched.");
+            }
+            while (rs != null && rs.next()) {
+                findStudent.add(new StudentList(rs.getString(1), rs.getString(2), rs.getDouble(3)));
+                System.out.println(" Student: " + rs.getString(1) + " " + rs.getString(2));
+                System.out.println(" Grade: " + rs.getDouble(3));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return findStudent;
+    }
+    public void PreparedstmtFindCourseAvg() {
+        String sql = "SELECT s.courseName, s.semester, avg(r.grade)\n" +
+                "FROM Registration AS r JOIN Course AS s ON r.courseID = s.courseID Group By s.courseID";
+        try {
+            pstmt = conn.prepareStatement(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public ArrayList<StudentList> FindCourseAvg() {
+        ArrayList<StudentList> findStudent = new ArrayList<>();
+        try {
+            rs = pstmt.executeQuery();
+            if (rs == null) {
+                System.out.println("No records fetched.");
+            }
+            while (rs != null && rs.next()) {
+                findStudent.add(new StudentList(rs.getString(1), rs.getString(2), rs.getDouble(3)));
+                System.out.println(" Student: " + rs.getString(1) + " " + rs.getString(2));
+                System.out.println(" Grade: " + rs.getDouble(3));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -117,9 +173,9 @@ public class StudentModel {
     class StudentList {
         String Student;
         String Course;
-        Integer Grade;
+        Double Grade;
 
-        public StudentList(String Student, String Course, Integer Grade) {
+        public StudentList(String Student, String Course, Double Grade) {
             this.Student = Student;
             this.Course = Course;
             this.Grade = Grade;
