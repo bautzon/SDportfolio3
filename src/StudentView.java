@@ -1,3 +1,4 @@
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -7,6 +8,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 
 public class StudentView {
+    StudentController control;
 
     private GridPane StartView;
     Button exitBtn = new Button("Exit");
@@ -18,8 +20,8 @@ public class StudentView {
     ComboBox<String> CourseCombo = new ComboBox<String>();
 
 
-    public StudentView(){
-
+    public StudentView(StudentController control){
+        this.control=control;
         CreateAndConfigure();
     }
     private void CreateAndConfigure(){
@@ -30,7 +32,6 @@ public class StudentView {
         StartView.setVgap(5);
         StartView.setHgap(1);
 
-
         StartView.add(StudentLbl, 1, 1);
         StartView.add(CourseLbl, 1,3);
         StartView.add(StudentText,1,7,15,7);
@@ -38,6 +39,15 @@ public class StudentView {
         StartView.add(exitBtn, 20, 15);
         StartView.add(StudentCombo, 15,1);
         StartView.add(CourseCombo, 15, 3);
+
+        ObservableList<String> studentList = control.getStudent();
+        StudentCombo.setItems(studentList);
+        StudentCombo.getSelectionModel().selectFirst();
+
+        ObservableList<String> courseList = control.getCourse();
+        CourseCombo.setItems(courseList);
+        CourseCombo.getSelectionModel().selectFirst();
+
 
     }
 

@@ -15,7 +15,7 @@ public class main extends Application {
         StudentModel SDB = new StudentModel(url);
         StudentController control = new StudentController(SDB);
 
-        StudentView view = new StudentView();
+        StudentView view = new StudentView(control);
         control.setView(view);
         primaryStage.setTitle("Student database");
         primaryStage.setScene(new Scene(view.asParent(), 600,475));
