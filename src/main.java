@@ -2,6 +2,7 @@ import java.sql.*;
 /*Connection conn = null;
 String url = "jdbc:sqlite:!(:memory:){file::identifier.sqlite}?";
 conn DriverManager.getConnection(url);*/
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -21,7 +22,6 @@ public class main extends Application {
     public static void main(String[] args) {
         launch(args);
         }
-
 }
 /*
 StudentModel SDB = new StudentModel(url);
