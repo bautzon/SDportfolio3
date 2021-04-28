@@ -31,7 +31,7 @@ public class StudentModel {
 
     }
 
-
+//Makes an SQL Query to get the student names
     public ArrayList<String> SQLQueryStudentNames() {
         ArrayList<String> Names = new ArrayList<>();
 
@@ -48,7 +48,7 @@ public class StudentModel {
         rs = null;
         return Names;
     }
-
+//makes an SQL query to get course names and semester
     public ArrayList<String> SQLQueryCourses() {
         ArrayList<String> Courses = new ArrayList<>();
 
@@ -65,24 +65,7 @@ public class StudentModel {
         rs = null;
         return Courses;
     }
-
-    public ArrayList<Integer> SQLQueryStudentGrade() {
-        ArrayList<Integer> Grades = new ArrayList<>();
-
-        String sql = "Select grade From Registration;";
-        try {
-            rs = stmt.executeQuery(sql);
-            while (rs != null && rs.next()) {
-                Integer grade = rs.getInt(1);
-                Grades.add(grade);
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        rs = null;
-        return Grades;
-    }
-
+//prepared statement to to get students names and grades
     public void PreparedstmtFindStudent() {
         String sql = "SELECT s.firstName, c.courseName, r.grade " +
                 "FROM Registration AS r JOIN Students AS s ON r.studentID = s.studentID JOIN Course C on C.courseID = r.courseID WHERE s.firstName = ? AND c.courseName=? AND c.semester=?;";
@@ -92,7 +75,7 @@ public class StudentModel {
             System.out.println(e.getMessage());
         }
     }
-
+//enters the student names and grades into and arraylist for printing
     public ArrayList<StudentList> FindStudent(String Student, String Course) {
         ArrayList<StudentList> findStudent = new ArrayList<>();
         String name = Course.substring(0, Course.indexOf(' '));
@@ -115,6 +98,7 @@ public class StudentModel {
         }
         return findStudent;
     }
+    //prepared statement to to get students names and average grades
     public void PreparedstmtFindStudentAvg() {
         String sql = "SELECT s.firstName, s.lastName, avg(r.grade)\n" +
                 "FROM Registration AS r JOIN Students AS s ON r.studentID = s.studentID Group By s.firstName";
@@ -124,7 +108,7 @@ public class StudentModel {
             System.out.println(e.getMessage());
         }
     }
-
+//enters the student names and the grade average into an array for printing
     public ArrayList<StudentList> FindStudentAvg() {
         ArrayList<StudentList> findStudent = new ArrayList<>();
         try {
@@ -142,6 +126,7 @@ public class StudentModel {
         }
         return findStudent;
     }
+    //prepared statement to to get courses and average grades
     public void PreparedstmtFindCourseAvg() {
         String sql = "SELECT s.courseName, s.semester, avg(r.grade)\n" +
                 "FROM Registration AS r JOIN Course AS s ON r.courseID = s.courseID Group By s.courseID";
@@ -151,7 +136,7 @@ public class StudentModel {
             System.out.println(e.getMessage());
         }
     }
-
+    //enters the courses and the grade average into an array for printing
     public ArrayList<StudentList> FindCourseAvg() {
         ArrayList<StudentList> findStudent = new ArrayList<>();
         try {
@@ -169,7 +154,7 @@ public class StudentModel {
         }
         return findStudent;
     }
-
+//student list object
     class StudentList {
         String Student;
         String Course;
@@ -180,7 +165,6 @@ public class StudentModel {
             this.Course = Course;
             this.Grade = Grade;
         }
-
 
     }
 }
