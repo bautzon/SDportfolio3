@@ -6,7 +6,7 @@ public class StudentController {
     StudentModel model;
     StudentView view;
 
-    public void StudentController(StudentModel model){
+    public StudentController(StudentModel model){
         this.model=model;
         try{
             model.connect();
