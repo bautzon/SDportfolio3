@@ -10,7 +10,7 @@ import javafx.scene.layout.GridPane;
 public class StudentView {
     StudentController control;
 
-    //Create the different parts of the GUI
+    //Creating the different buttons and textfield for the GUI menu.
     private GridPane StartView;
     Button exitBtn = new Button("Exit");
     Button FindStudentBtn = new Button("Find Student");
@@ -27,8 +27,8 @@ public class StudentView {
         this.control=control;
         CreateAndConfigure();
     }
+    //Placing the different elements to a grid pane
     private void CreateAndConfigure(){
-
         StartView=new GridPane();
         StartView.setMinSize(300,200);
         StartView.setPadding(new Insets(10,10,10,10));
@@ -57,7 +57,6 @@ public class StudentView {
 
     public Parent asParent(){
         return StartView;
-
     }
 
 }

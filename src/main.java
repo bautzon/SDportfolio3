@@ -1,11 +1,14 @@
-import java.sql.*;
+/*
+Made by:
+Lau Sivertsen
+Bjørn Utzon
+Magnus Nielsen
+Date: 28-04-2021
+*/
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.util.ArrayList;
-/*Connection conn = null;
-String url = "jdbc:sqlite:!(:memory:){file::identifier.sqlite}?";
-conn DriverManager.getConnection(url);*/
+
 
 public class main extends Application {
 
@@ -27,15 +30,3 @@ public class main extends Application {
     }
 
 }
-/*
-   String url = "C:\\Users\\Lau\\Documents\\GitHub\\SDportfolio3\\identifier.sqlite";
-        StudentModel SDB = new StudentModel(url);
-        try {
-            SDB.connect();
-            SDB.CreateStatement();
-            ArrayList<String> names= SDB.SQLQueryStudentNames();
-            SDB.PrintStudents(names);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
- */
