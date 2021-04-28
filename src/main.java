@@ -5,12 +5,18 @@ conn DriverManager.getConnection(url);*/
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import java.util.ArrayList;
 
 public class main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        String url = "jdbc:sqlite:C:/Users/Lau/Documents/GitHub/SDportfolio3/identifier.sqlite";
+        StudentModel SDB = new StudentModel(url);
+        StudentController control = new StudentController(SDB);
+
         StudentView view = new StudentView();
+        control.setView(view);
         primaryStage.setTitle("Student database");
         primaryStage.setScene(new Scene(view.asParent(), 600,475));
         primaryStage.show();
@@ -20,14 +26,19 @@ public class main extends Application {
 
     public static void main(String[] args) {
         launch(args);
-        }
+
+    }
 
 }
 /*
-StudentModel SDB = new StudentModel(url);
-SDB.connect();
-SDB.CreateStatement();
-Arraylist<String> names= SDB.SQLQueryStudentNames();
-SDB.PrintStudents(names)
-
+   String url = "C:\\Users\\Lau\\Documents\\GitHub\\SDportfolio3\\identifier.sqlite";
+        StudentModel SDB = new StudentModel(url);
+        try {
+            SDB.connect();
+            SDB.CreateStatement();
+            ArrayList<String> names= SDB.SQLQueryStudentNames();
+            SDB.PrintStudents(names);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
  */

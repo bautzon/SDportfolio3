@@ -47,6 +47,7 @@ public class StudentModel {
         } catch (SQLException e){
             System.out.println(e.getMessage());
         }
+        rs=null;
         return Names;
     }
 
